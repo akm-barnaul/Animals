@@ -1,11 +1,13 @@
 package ru.akm.testtask.animals.jetty.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import ru.akm.testtask.animals.jetty.models.ErrorInfo;
 
 /**
  *
@@ -20,7 +22,9 @@ public class RestAuthenticationEntryPoint
             HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException) throws IOException {
-
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        
+        ObjectMapper mapper = new ObjectMapper(); 
+        final ErrorInfo error = new ErrorInfo(666L, "Доступ запрещён",authException.getLocalizedMessage());
+        mapper.writeValue(response.getOutputStream(), error);
     }
 }
