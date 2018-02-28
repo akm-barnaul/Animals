@@ -62,7 +62,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            //.authenticationProvider(customAuthenticationProvider)
             .userDetailsService(userDetailsService)
             .passwordEncoder(pbkdf2PasswordEncoder());
     }    

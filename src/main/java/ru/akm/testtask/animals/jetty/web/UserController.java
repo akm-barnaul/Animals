@@ -2,7 +2,6 @@ package ru.akm.testtask.animals.jetty.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +12,6 @@ import ru.akm.testtask.animals.jetty.models.User;
 import ru.akm.testtask.animals.jetty.security.SecurityService;
 import ru.akm.testtask.animals.jetty.service.UserService;
 
-@Controller
 @RestController
 public class UserController {
 
@@ -22,6 +20,11 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+    /**
+     * Создание нового пользователя
+     * 
+     * @return Новый пользователь
+     */
     @RequestMapping("/user/new")
     @ResponseBody
     public User getNewUser() {
@@ -35,12 +38,23 @@ public class UserController {
         }
     }    
     
-    @RequestMapping("/user/i")
+    /**
+     * Информация о текущем авторизованном пользователе
+     * 
+     * @return Данные пользователя
+     */
+    @RequestMapping("/user")
     @ResponseBody
     public User getCurrentUser() {
         return userService.getUser(securityService.findLoggedInUsername());
     }
     
+    /**
+     * Проверка доступности имени
+     * 
+     * @param u     Запрос в формате {"userName":""}
+     * @return      Сообщение о доступности пользователя
+     */
     @RequestMapping(method = RequestMethod.POST, path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getUser(@RequestBody User u) {

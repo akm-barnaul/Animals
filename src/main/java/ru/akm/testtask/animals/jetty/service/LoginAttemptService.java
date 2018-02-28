@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Сервис для ограничения 10-ю попытками в час
+ * 
  * @author akm
  */
 @Service
@@ -27,10 +28,20 @@ public class LoginAttemptService {
         });
     }
 
+    /**
+     * Обработка успешного логина
+     * 
+     * @param key Имя пользователя
+     */
     public void loginSucceeded(String key) {
         attemptsCache.invalidate(key);
     }
 
+    /**
+     * Обработка ошибочного логина
+     * 
+     * @param key Имя пользователя
+     */
     public void loginFailed(String key) {
         int attempts = 0;
         try {
@@ -42,6 +53,12 @@ public class LoginAttemptService {
         attemptsCache.put(key, attempts);
     }
 
+    /**
+     * Проверка признака блокировки
+     * 
+     * @param key   Имя пользователя
+     * @return      True, если блокирован
+     */
     public boolean isBlocked(String key) {
         try {
             return attemptsCache.get(key) >= MAX_ATTEMPT;

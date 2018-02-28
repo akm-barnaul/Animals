@@ -19,7 +19,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.akm.testtask.animals.jetty.models.User;
 
 /**
- *
+ * Фильтр для обработки аутентификации с при передаче учётных данных в JSON
+ * 
  * @author akm
  */
 public class CustomUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -52,14 +53,11 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
             if (parsedReq != null) {
                 ObjectMapper mapper = new ObjectMapper();
                 u = mapper.readValue(parsedReq, User.class);
-                /*} catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new InternalAuthenticationServiceException("Failed to parse authentication request body");
-        }*/
             }
         } catch (IOException ex) {
             u = null;
             Logger.getLogger(CustomUsernamePasswordAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+            throw new InternalAuthenticationServiceException("Ошибка чтения авторизационных данных");
         }
         if (u != null) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(u.getUserName(), u.getUserPwd());

@@ -14,7 +14,8 @@ import ru.akm.testtask.animals.jetty.persist.UserRepository;
 import ru.akm.testtask.animals.jetty.service.LoginAttemptService;
 
 /**
- *
+ * Сервис подробных сведений о пользователе
+ * 
  * @author akm
  */
 @Service

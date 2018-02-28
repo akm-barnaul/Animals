@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import ru.akm.testtask.animals.jetty.service.LoginAttemptService;
 
 /**
- *
+ * Получатель события ошибочной аутентификации
+ * 
  * @author akm
  */
 @Component

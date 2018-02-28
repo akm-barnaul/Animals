@@ -7,7 +7,8 @@ import ru.akm.testtask.animals.jetty.persist.UserRepository;
 import ru.akm.testtask.animals.jetty.security.SecurityService;
 
 /**
- *
+ * Сервис для работы с пользователями
+ * 
  * @author akm
  */
 @Component

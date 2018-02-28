@@ -9,6 +9,8 @@ import ru.akm.testtask.animals.jetty.persist.AnimalRepository;
 import ru.akm.testtask.animals.jetty.persist.AnimalTypeRepository;
 
 /**
+ * Сервис работы с животными
+ * 
  * @author akm
  */
 @Component
@@ -33,7 +35,7 @@ public class AnimalService {
      * @param id    ID записи БД
      * @return      Полная информация о животном
      */
-    public Animal getAnimal(Long id) {
+    public Animal getAnimal(Long id) {        
         return animalRepository.findOne(id);
     }
     
